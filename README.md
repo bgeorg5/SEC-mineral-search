@@ -10,4 +10,6 @@ SEC_API_KEY="..."
 where "..." is just your API key.
 
 
-If needed you may need to run an 'npm install' commands for any missing requirements.
+You can either run an 'npm install' commands for any missing requirements 
+Or
+unzip the compressed_node_modules folder.
