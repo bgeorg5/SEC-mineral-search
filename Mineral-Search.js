@@ -1,3 +1,5 @@
+//import * as cheerio from '/cheerio';
+
 //result criteria:
 //A) minerals discloed
 //B) Due diligence partners: orgs. that certify the supply chain as "clean"
@@ -11,18 +13,24 @@
 //May need to swap lines depending on JS versions...
 //import * as cheerio from 'cheerio';
 require('dotenv').config();
+//import dotenv from package.json
+//import cheerio from package.json
+//import request  from package.json
+//import axios from package.json
+
 const cheerio           = require('cheerio');
 const request           = require('request');
 const axios             = require('axios');
 const keywords          = require('./mineral-keywords.json');
 const auditorList       = keywords.auditors;
 const mineralList       = keywords.mineralsList;
+const tableMineralList  = keywords.tableMineralsList;
 const allMinerals       = keywords.mineralsString;
 const companyList       = keywords.companies;
 //const cikList           = keywords.cik;
 
 
-var type            = 'text'; //or 'html'
+var type            = 'html'; //or 'html' 'text'
 var token           = process.env.SEC_API_KEY;
 
 
@@ -73,10 +81,9 @@ function searchApiCall(searchString, startDateString, stopDateString) {
 
                 //testing
                 //console.log(postRes[0].cik);
-                //console.log(postRes.length);
-                
-                 
-                
+                console.log('thisis the lenght of postres')
+                console.log(postRes.length);
+ 
                 for(let i = 0; i < postRes.length; i++)
                 {
                     //testing
@@ -84,10 +91,12 @@ function searchApiCall(searchString, startDateString, stopDateString) {
                     //console.log(postRes[i]);
                     urlList.push(String(postRes[i].filingUrl));
                 }
-            
-                    let element = urlList[0];
+                console.log('url list:')
+                console.log(urlList);             
+                    let element = urlList[4];
                     //testing
-                    //console.log(element);
+                    console.log('this is ELEMENT')
+                    console.log(element);
     
                      
                     let idurl = element.replace("https://www.sec.gov/Archives/edgar/data/", "");
@@ -96,17 +105,19 @@ function searchApiCall(searchString, startDateString, stopDateString) {
     
                     let testGetURL      = `https://archive.sec-api.io/${idurl}?token=${token}&type=${type}`;
     
-    
+                    console.log(testGetURL)
                      axios.get(testGetURL)
                      .then(({ data }) => {
                          
                         //testing
+                        //console.log('------------------this is the data---------------------------')
                         //console.log(data)
-                        
+                        //console.log('------------------ END data---------------------------')
                          
                          //parse each word of this doc to get the known auditors and minerls used.
                          var knownAuditors = parseDoc(data, auditorList);
                          var knownMinerals = parseDoc(data, mineralList);
+                         var knownTableMinerals = parseDoc(data, tableMineralList);
                          
                          console.log("  Known Auditors:");
                          knownAuditors.forEach(element => {
@@ -117,7 +128,11 @@ function searchApiCall(searchString, startDateString, stopDateString) {
                          knownMinerals.forEach(element => {
                             console.log("       "+element);
                         });
-    
+
+                         console.log(" Smelter Table Known Minerals:");
+                         knownTableMinerals.forEach(element => {
+                            console.log("       "+element);
+                        });
                          
                  });
     
@@ -145,7 +160,6 @@ function parseDoc(docFullText, keywordList){
         if(docFullText.search(keywordList[i], '/.../i') != -1){
             //testing
             //console.log("   "+keywordList[i]);
-
             knownList.push(keywordList[i]);
         }
 
