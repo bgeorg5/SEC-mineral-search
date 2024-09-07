@@ -1,11 +1,9 @@
 {
   "dependencies": {
-    "axios": "^1.7.3",
+    "axios": "^1.7.2",
     "cheerio": "^1.0.0-rc.12",
-    "convert-array-to-csv": "^2.0.0",
     "dotenv": "^16.4.5",
-    "request": "^2.88.2",
-    "url-parse": "^1.5.10"
+    "request": "^2.88.2"
   },
   "name": "timeline",
   "version": "1.0.0",
@@ -16,7 +14,5 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "This is the test code for a tool to search SEC filings using sec-api.io.\r This is incomplete and needs some improvements/ revising.",
-  "type": "module",
-  "devDependencies": {}
+  "description": ""
 }
