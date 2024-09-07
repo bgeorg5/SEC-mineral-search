@@ -1,0 +1,35 @@
+name: py
+
+on:
+  workflow_dispatch:
+
+env:
+  key: ${{secrets.key}}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout repo content
+        uses: actions/checkout@v2 # checkout the repository content to github runner.
+      - name: setup python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9 #install the python needed
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f pythonOption/requirements.txt ]; then pip install -r pythonOption/requirements.txt; fi
+      - name: execute py script # run file
+        run: |
+          python pythonOption/callingFunctions.py
+      - name: Pushing the change
+        run: |
+          git config --global user.email "cervantes.blc@gmail.com"
+          git config --global user.name "brine"
+          git add output.csv
+          git commit -m 'my commit message'
+          git push 
+
+          
