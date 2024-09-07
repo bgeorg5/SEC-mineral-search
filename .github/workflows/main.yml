@@ -26,6 +26,8 @@ jobs:
           python pythonOption/callingFunctions.py
       - name: Pushing the change
         run: |
+          git config --global user.email "cervantes.blc@gmail.com"
+          git config --global user.name "brine"
           git add output.csv
           git commit -m 'my commit message'
           git push 
