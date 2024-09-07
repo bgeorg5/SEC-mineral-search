@@ -21,3 +21,6 @@ jobs:
       - name: execute py script # run file
         run: |
           python pythonOption/callingFunctions.py
+        env:
+          key: ${{secrets.key}}
+          
