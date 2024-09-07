@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-from keydoc_2 import *
+#from keydoc_2 import *
 
 # to get filings
 from sec_api import FullTextSearchApi
