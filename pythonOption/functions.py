@@ -1,6 +1,9 @@
 import pandas as pd
 import numpy as np
-#from keydoc_2 import *
+#from keydoc_2 import * ## replacing this with the following to runin github workflows
+
+import os 
+key = os.environ["key"]
 
 # to get filings
 from sec_api import FullTextSearchApi
