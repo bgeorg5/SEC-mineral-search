@@ -3,6 +3,9 @@ name: py
 on:
   workflow_dispatch:
 
+env:
+  key: ${{secrets.key}}
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -21,6 +24,5 @@ jobs:
       - name: execute py script # run file
         run: |
           python pythonOption/callingFunctions.py
-        env:
-          key: ${{secrets.key}}
+
           
